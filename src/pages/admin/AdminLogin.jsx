@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
-import { auth } from '../../firebase';
-import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import styles from './AdminLogin.module.css';
 
 const AdminLogin = () => {
-    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
@@ -17,10 +14,18 @@ const AdminLogin = () => {
         setLoading(true);
 
         try {
-            await signInWithEmailAndPassword(auth, email, password);
-            navigate('/admin/dashboard');
+            // Simple password check against environment variable
+            const adminPassword = import.meta.env.VITE_ADMIN_PASSWORD || 'admin123';
+
+            if (password === adminPassword) {
+                // Store auth in sessionStorage
+                sessionStorage.setItem('adminAuth', 'true');
+                navigate('/admin/dashboard');
+            } else {
+                setError('Invalid password');
+            }
         } catch (err) {
-            setError('Invalid email or password');
+            setError('Login failed');
             console.error(err);
         } finally {
             setLoading(false);
@@ -37,18 +42,6 @@ const AdminLogin = () => {
 
                 <form onSubmit={handleLogin} className={styles.form}>
                     <div className={styles.inputGroup}>
-                        <label htmlFor="email">Email</label>
-                        <input
-                            id="email"
-                            type="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                            placeholder="admin@shresthaconsolidated.com"
-                        />
-                    </div>
-
-                    <div className={styles.inputGroup}>
                         <label htmlFor="password">Password</label>
                         <input
                             id="password"
@@ -56,7 +49,8 @@ const AdminLogin = () => {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required
-                            placeholder="Enter your password"
+                            placeholder="Enter admin password"
+                            autoFocus
                         />
                     </div>
 
@@ -64,6 +58,10 @@ const AdminLogin = () => {
                         {loading ? 'Logging in...' : 'Login'}
                     </button>
                 </form>
+
+                <p className={styles.hint}>
+                    Default password: admin123 (change in .env)
+                </p>
             </div>
         </div>
     );

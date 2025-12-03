@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { auth } from '../../firebase';
-import { signOut } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import { fetchContent, updateContent } from '../../firebase/services';
-import { uploadImage } from '../../firebase/storage';
+import { fetchContent, updateContent } from '../../services/github';
 import styles from './AdminDashboard.module.css';
 import CompanySettings from '../../components/admin/CompanySettings';
 import ServicesManager from '../../components/admin/ServicesManager';
@@ -18,37 +15,31 @@ const AdminDashboard = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged((user) => {
-            if (!user) {
-                navigate('/admin/login');
-            } else {
-                loadContent();
-            }
-        });
+        // Check authentication
+        const isAuthenticated = sessionStorage.getItem('adminAuth') === 'true';
+        if (!isAuthenticated) {
+            navigate('/admin/login');
+            return;
+        }
 
-        return () => unsubscribe();
+        loadContent();
     }, [navigate]);
 
     const loadContent = async () => {
         try {
             const data = await fetchContent();
-            if (data) {
-                setContent(data);
-            }
+            setContent(data);
         } catch (error) {
             console.error('Error loading content:', error);
+            alert('Error loading content. Please check your GitHub token.');
         } finally {
             setLoading(false);
         }
     };
 
-    const handleLogout = async () => {
-        try {
-            await signOut(auth);
-            navigate('/admin/login');
-        } catch (error) {
-            console.error('Error logging out:', error);
-        }
+    const handleLogout = () => {
+        sessionStorage.removeItem('adminAuth');
+        navigate('/admin/login');
     };
 
     const handleSave = async (updatedData) => {
@@ -56,10 +47,10 @@ const AdminDashboard = () => {
         try {
             await updateContent(updatedData);
             setContent(updatedData);
-            alert('Changes saved successfully!');
+            alert('✅ Changes saved! Vercel will redeploy in ~2 minutes.');
         } catch (error) {
             console.error('Error saving:', error);
-            alert('Error saving changes. Please try again.');
+            alert('❌ Error saving changes. Please check your GitHub token and try again.');
         } finally {
             setSaving(false);
         }
@@ -81,7 +72,7 @@ const AdminDashboard = () => {
                 <div className={styles.headerContent}>
                     <h1>Admin Dashboard</h1>
                     <div className={styles.headerActions}>
-                        <span className={styles.userEmail}>{auth.currentUser?.email}</span>
+                        <span className={styles.userEmail}>GitHub CMS</span>
                         <button onClick={handleLogout} className={styles.logoutBtn}>
                             Logout
                         </button>

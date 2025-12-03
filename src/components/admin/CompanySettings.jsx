@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { uploadImage } from '../../firebase/storage';
+import { uploadImage } from '../../services/github';
 import styles from './AdminComponents.module.css';
 
 const CompanySettings = ({ content, onSave, saving }) => {
@@ -25,12 +25,16 @@ const CompanySettings = ({ content, onSave, saving }) => {
 
         setUploading(true);
         try {
-            const url = await uploadImage(file, `logos/${Date.now()}_${file.name}`);
+            const timestamp = Date.now();
+            const extension = file.name.split('.').pop();
+            const fileName = `logo-${timestamp}.${extension}`;
+
+            const url = await uploadImage(file, fileName);
             handleChange('company', 'logo', url);
-            alert('Logo uploaded successfully!');
+            alert('Logo uploaded successfully! Save changes to commit to GitHub.');
         } catch (error) {
             console.error('Error uploading logo:', error);
-            alert('Error uploading logo. Please try again.');
+            alert('Error uploading logo. Please check your GitHub token.');
         } finally {
             setUploading(false);
         }

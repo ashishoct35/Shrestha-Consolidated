@@ -1,0 +1,176 @@
+.home {
+    background-color: #000;
+}
+
+.servicesSection {
+    padding: 6rem 0;
+    background-color: var(--bg-primary);
+}
+
+.sectionHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 4rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.sectionTitle {
+    font-size: 1.875rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #fff;
+}
+
+.sectionSubtitle {
+    color: var(--text-secondary);
+}
+
+.sectionLink {
+    display: none;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--accent-primary);
+    transition: color var(--transition-fast);
+}
+
+.sectionLink:hover {
+    color: var(--accent-secondary);
+}
+
+.servicesGrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+.serviceCard {
+    padding: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    transition: background-color var(--transition-medium);
+}
+
+.serviceCard:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.serviceTitle {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #fff;
+    transition: color var(--transition-fast);
+}
+
+.serviceCard:hover .serviceTitle {
+    color: var(--accent-primary);
+}
+
+.serviceDescription {
+    color: var(--text-secondary);
+    line-height: 1.75;
+}
+
+.mobileLink {
+    margin-top: 3rem;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.mobileLinkBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--accent-primary);
+}
+
+.portfolioSection {
+    padding: 6rem 0;
+    background-color: #000;
+}
+
+.portfolioGrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+}
+
+.portfolioItem {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    border-radius: 1rem;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.portfolioIframe {
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    transition: transform 0.7s ease;
+}
+
+.portfolioItem:hover .portfolioIframe {
+    transform: scale(1.05);
+}
+
+.portfolioOverlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: background-color 0.5s ease;
+}
+
+.portfolioItem:hover .portfolioOverlay {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.portfolioInfo {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 2rem;
+    background: linear-gradient(to top, #000, transparent);
+}
+
+.portfolioTitle {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.5rem;
+}
+
+.portfolioLink {
+    color: var(--accent-primary);
+    transition: text-decoration var(--transition-fast);
+}
+
+.portfolioLink:hover {
+    text-decoration: underline;
+}
+
+@media (min-width: 768px) {
+    .sectionTitle {
+        font-size: 2.25rem;
+    }
+
+    .sectionLink {
+        display: flex;
+    }
+
+    .servicesGrid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .mobileLink {
+        display: none;
+    }
+
+    .portfolioGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

@@ -1,0 +1,177 @@
+.hero {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: #000;
+}
+
+.background {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.bgOrb1 {
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    width: 24rem;
+    height: 24rem;
+    background-color: rgba(88, 28, 135, 0.2);
+    border-radius: 50%;
+    filter: blur(80px);
+    animation: pulse 3s ease-in-out infinite;
+}
+
+.bgOrb2 {
+    position: absolute;
+    bottom: 25%;
+    right: 25%;
+    width: 24rem;
+    height: 24rem;
+    background-color: rgba(30, 58, 138, 0.2);
+    border-radius: 50%;
+    filter: blur(80px);
+    animation: pulse 3s ease-in-out infinite;
+    animation-delay: 1s;
+}
+
+.bgGradient {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    width: 50rem;
+    height: 50rem;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.05), transparent);
+    filter: blur(40px);
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.heroContent {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 0 1rem;
+}
+
+.tagline {
+    font-size: 1.25rem;
+    color: #9ca3af;
+    margin-bottom: 1rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+
+.title {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    line-height: 1.2;
+}
+
+.subtitle {
+    font-size: 1.125rem;
+    color: #9ca3af;
+    max-width: 42rem;
+    margin: 0 auto 3rem;
+    line-height: 1.75;
+}
+
+.ctaButtons {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.secondaryBtn {
+    padding: 1rem 2rem;
+    border: 1px solid #4b5563;
+    border-radius: 50px;
+    color: #fff;
+    transition: all var(--transition-fast);
+    min-width: 200px;
+    text-align: center;
+}
+
+.secondaryBtn:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.scrollIndicator {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.scrollBox {
+    width: 1.5rem;
+    height: 2.5rem;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    padding-top: 0.5rem;
+}
+
+.scrollDot {
+    width: 0.25rem;
+    height: 0.5rem;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 50px;
+    animation: scroll 2s ease-in-out infinite;
+}
+
+@keyframes scroll {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(10px);
+    }
+}
+
+@media (min-width: 768px) {
+    .tagline {
+        font-size: 1.5rem;
+    }
+
+    .title {
+        font-size: 4.5rem;
+    }
+
+    .subtitle {
+        font-size: 1.25rem;
+    }
+
+    .ctaButtons {
+        flex-direction: row;
+    }
+}
+
+@media (min-width: 1024px) {
+    .title {
+        font-size: 6rem;
+    }
+}

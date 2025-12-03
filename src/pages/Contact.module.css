@@ -1,0 +1,161 @@
+.contactPage {
+    padding-top: 8rem;
+    padding-bottom: 6rem;
+    min-height: 100vh;
+    background-color: #000;
+}
+
+.pageHeader {
+    text-align: center;
+    margin-bottom: 5rem;
+}
+
+.pageTitle {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+}
+
+.pageSubtitle {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    max-width: 42rem;
+    margin: 0 auto;
+}
+
+.contactGrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    max-width: 80rem;
+    margin: 0 auto;
+}
+
+.contactInfo {}
+
+.infoCard {
+    background-color: var(--bg-primary);
+    padding: 2.5rem;
+    border-radius: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.infoTitle {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 2rem;
+}
+
+.socialsGrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.socialLink {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: var(--bg-secondary);
+    border-radius: 0.75rem;
+    transition: background-color var(--transition-fast);
+}
+
+.socialLink:hover {
+    background-color: var(--bg-tertiary);
+}
+
+.socialLink svg {
+    color: var(--accent-primary);
+}
+
+.socialName {
+    color: #d1d5db;
+    transition: color var(--transition-fast);
+}
+
+.socialLink:hover .socialName {
+    color: #fff;
+}
+
+.contactDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.contactDetail {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.contactIcon {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background-color: var(--bg-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent-primary);
+}
+
+.contactLabel {
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+
+.contactValue {
+    color: #fff;
+    font-size: 1.125rem;
+}
+
+.calendlySection {
+    margin-top: 2.5rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.calendlyBtn {
+    width: 100%;
+    padding: 1rem;
+    text-align: center;
+    font-size: 1.125rem;
+}
+
+.mapWrapper {
+    height: 600px;
+    background-color: var(--bg-primary);
+    border-radius: 1.5rem;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mapIframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    filter: grayscale(100%) invert(92%) contrast(83%);
+}
+
+@media (min-width: 640px) {
+    .socialsGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 768px) {
+    .pageTitle {
+        font-size: 3.75rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .contactGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

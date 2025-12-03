@@ -1,0 +1,21 @@
+.layout {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main {
+    flex-grow: 1;
+}
+
+.footer {
+    background-color: var(--bg-secondary);
+    padding: 2rem 0;
+    border-top: 1px solid #222;
+}
+
+.footerContent {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}

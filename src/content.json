@@ -1,0 +1,83 @@
+{
+  "company": {
+    "name": "Shrestha Consolidated",
+    "logo": "/src/assets/logo.png",
+    "description": "We build premium digital experiences that drive growth.",
+    "tagline": "Elevating Your Digital Presence"
+  },
+  "hero": {
+    "title": "Build Your Digital Empire",
+    "subtitle": "Premium Website Building Services for Modern Businesses.",
+    "cta": "Book a Consultation"
+  },
+  "services": [
+    {
+      "id": 1,
+      "title": "Custom Website Development",
+      "description": "Tailored websites built from scratch to meet your specific business needs.",
+      "icon": "Code"
+    },
+    {
+      "id": 2,
+      "title": "E-commerce Solutions",
+      "description": "Robust online stores designed to maximize sales and user experience.",
+      "icon": "ShoppingBag"
+    },
+    {
+      "id": 3,
+      "title": "UI/UX Design",
+      "description": "User-centric designs that are both beautiful and functional.",
+      "icon": "Palette"
+    },
+    {
+      "id": 4,
+      "title": "SEO Optimization",
+      "description": "Strategies to improve your visibility and ranking on search engines.",
+      "icon": "Search"
+    }
+  ],
+  "portfolio": [
+    {
+      "id": 1,
+      "title": "Ashish Restaurant",
+      "url": "https://ashish-restaurant.vercel.app/",
+      "image": "https://ashish-restaurant.vercel.app/og-image.png" 
+    },
+    {
+      "id": 2,
+      "title": "Ashish Gym",
+      "url": "https://ashish-gym.vercel.app/",
+      "image": "https://ashish-gym.vercel.app/og-image.png"
+    },
+    {
+      "id": 3,
+      "title": "Ashish Bakery Cafe",
+      "url": "https://ashish-bakery-cafe.vercel.app/",
+      "image": "https://ashish-bakery-cafe.vercel.app/og-image.png"
+    },
+    {
+      "id": 4,
+      "title": "Ashish Tattoo Studio",
+      "url": "https://ashish-tattoo-studio.vercel.app/",
+      "image": "https://ashish-tattoo-studio.vercel.app/og-image.png"
+    },
+    {
+      "id": 5,
+      "title": "Ashish Hotel",
+      "url": "https://ashish-hotel.vercel.app/",
+      "image": "https://ashish-hotel.vercel.app/og-image.png"
+    }
+  ],
+  "contact": {
+    "socials": {
+      "facebook": "https://facebook.com",
+      "instagram": "https://instagram.com",
+      "twitter": "https://twitter.com",
+      "whatsapp": "https://wa.me/1234567890"
+    },
+    "phone": "+977-9800000000",
+    "address": "Kathmandu, Nepal",
+    "mapEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d56516.31625951266!2d85.3261328!3d27.7089559!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb198a307baabf%3A0xb5137c1bf18db1ea!2sKathmandu%2044600!5e0!3m2!1sen!2snp!4v1650000000000!5m2!1sen!2snp",
+    "calendlyLink": "https://calendly.com/shresthaconsolidated/30min"
+  }
+}

@@ -1,0 +1,107 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    transition: all 0.3s ease;
+    padding: 1.5rem 0;
+}
+
+.navbar.scrolled {
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(12px);
+    padding: 1rem 0;
+}
+
+.navContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    z-index: 51;
+}
+
+.logoImg {
+    height: 2.5rem;
+    width: auto;
+}
+
+.logoText {
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: #fff;
+}
+
+.desktopMenu {
+    display: none;
+    align-items: center;
+    gap: 2rem;
+}
+
+.navLink {
+    color: #d1d5db;
+    transition: color 0.2s ease;
+}
+
+.navLink:hover {
+    color: #fff;
+}
+
+.mobileToggle {
+    color: #fff;
+    z-index: 51;
+    background: transparent;
+    cursor: pointer;
+}
+
+.mobileMenu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.mobileLink {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.mobileCalendly {
+    font-size: 1.25rem;
+    padding: 1rem 2rem;
+}
+
+@media (min-width: 768px) {
+    .desktopMenu {
+        display: flex;
+    }
+
+    .mobileToggle {
+        display: none;
+    }
+
+    .logoText {
+        display: block;
+    }
+}
+
+@media (max-width: 767px) {
+    .logoText {
+        display: none;
+    }
+}

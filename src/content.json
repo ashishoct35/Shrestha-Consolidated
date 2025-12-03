@@ -1,7 +1,7 @@
 {
   "company": {
     "name": "Shrestha Consolidated",
-    "logo": "/src/assets/logo.png",
+    "logo": "/logo.png",
     "description": "We build premium digital experiences that drive growth.",
     "tagline": "Elevating Your Digital Presence"
   },
@@ -41,7 +41,7 @@
       "id": 1,
       "title": "Ashish Restaurant",
       "url": "https://ashish-restaurant.vercel.app/",
-      "image": "https://ashish-restaurant.vercel.app/og-image.png" 
+      "image": "https://ashish-restaurant.vercel.app/og-image.png"
     },
     {
       "id": 2,

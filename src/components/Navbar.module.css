@@ -30,6 +30,8 @@
 .logoImg {
     height: 2.5rem;
     width: auto;
+    mix-blend-mode: screen;
+    /* This makes dark backgrounds transparent while keeping the bright cyan/turquoise logo visible */
 }
 
 .logoText {

@@ -1,9 +1,12 @@
 // Frontend service that calls Vercel API endpoints
 
-// Fetch content.json
+// Fetch content.json via Vercel API (from GitHub)
 export const fetchContent = async () => {
     try {
-        const response = await fetch('/src/content.json');
+        const response = await fetch('/api/get-content');
+        if (!response.ok) {
+            throw new Error('Failed to fetch content');
+        }
         const data = await response.json();
         return data;
     } catch (error) {

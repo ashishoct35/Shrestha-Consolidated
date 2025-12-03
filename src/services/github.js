@@ -1,95 +1,78 @@
-// GitHub API service for updating content
-import { Octokit } from 'octokit';
+// Simplified service - just edit content locally and download
+// No GitHub API needed!
 
-// Get GitHub credentials from environment variables
-const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN;
-const REPO_OWNER = import.meta.env.VITE_REPO_OWNER || 'ashishoct35';
-const REPO_NAME = import.meta.env.VITE_REPO_NAME || 'Shrestha-Consolidated';
-
-const octokit = new Octokit({ auth: GITHUB_TOKEN });
-
-// Fetch content.json from GitHub
+// Fetch content.json locally
 export const fetchContent = async () => {
     try {
-        // First try to import locally
         const response = await fetch('/src/content.json');
-        if (response.ok) {
-            return await response.json();
-        }
-
-        // Fallback to GitHub API
-        const { data } = await octokit.rest.repos.getContent({
-            owner: REPO_OWNER,
-            repo: REPO_NAME,
-            path: 'src/content.json',
-        });
-
-        const content = JSON.parse(atob(data.content));
-        return content;
+        const data = await response.json();
+        return data;
     } catch (error) {
         console.error('Error fetching content:', error);
         throw error;
     }
 };
 
-// Update content.json and commit to GitHub
+// Save content (download as file instead of committing to GitHub)
 export const updateContent = async (newContent) => {
     try {
-        // Get current file to get its SHA
-        const { data: currentFile } = await octokit.rest.repos.getContent({
-            owner: REPO_OWNER,
-            repo: REPO_NAME,
-            path: 'src/content.json',
-        });
+        // Create a downloadable JSON file
+        const jsonString = JSON.stringify(newContent, null, 2);
+        const blob = new Blob([jsonString], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
 
-        // Update file
-        const response = await octokit.rest.repos.createOrUpdateFileContents({
-            owner: REPO_OWNER,
-            repo: REPO_NAME,
-            path: 'src/content.json',
-            message: 'Update content via admin panel',
-            content: btoa(JSON.stringify(newContent, null, 2)),
-            sha: currentFile.sha,
-        });
+        // Create download link
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'content.json';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
 
-        return response.data;
+        // Show instructions
+        alert(`✅ content.json downloaded!
+
+NEXT STEPS:
+1. Replace the file at: src/content.json
+2. Commit to GitHub:
+   git add src/content.json
+   git commit -m "Update content"
+   git push
+
+Vercel will auto-deploy in ~2 minutes!`);
+
+        return true;
     } catch (error) {
-        console.error('Error updating content:', error);
+        console.error('Error saving content:', error);
         throw error;
     }
 };
 
-// Upload image to GitHub (stores in public folder)
+// Upload image (also just download, user uploads manually)
 export const uploadImage = async (file, fileName) => {
     try {
-        const reader = new FileReader();
+        // Create download link for the image
+        const url = URL.createObjectURL(file);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = fileName;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
 
-        return new Promise((resolve, reject) => {
-            reader.onload = async () => {
-                try {
-                    const base64Content = reader.result.split(',')[1];
+        alert(`✅ Image downloaded as: ${fileName}
 
-                    const response = await octokit.rest.repos.createOrUpdateFileContents({
-                        owner: REPO_OWNER,
-                        repo: REPO_NAME,
-                        path: `public/${fileName}`,
-                        message: `Upload image: ${fileName}`,
-                        content: base64Content,
-                    });
+NEXT STEPS:
+1. Save it to: public/${fileName}
+2. Commit to GitHub
+3. Use path: /${fileName} in your content`);
 
-                    // Return the public URL
-                    const imageUrl = `/${fileName}`;
-                    resolve(imageUrl);
-                } catch (error) {
-                    reject(error);
-                }
-            };
-
-            reader.onerror = reject;
-            reader.readAsDataURL(file);
-        });
+        // Return the expected path
+        return `/${fileName}`;
     } catch (error) {
-        console.error('Error uploading image:', error);
+        console.error('Error with image:', error);
         throw error;
     }
 };

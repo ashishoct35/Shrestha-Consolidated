@@ -1,7 +1,6 @@
-// Simplified service - just edit content locally and download
-// No GitHub API needed!
+// Frontend service that calls Vercel API endpoints
 
-// Fetch content.json locally
+// Fetch content.json
 export const fetchContent = async () => {
     try {
         const response = await fetch('/src/content.json');
@@ -13,66 +12,66 @@ export const fetchContent = async () => {
     }
 };
 
-// Save content (download as file instead of committing to GitHub)
+// Update content.json via Vercel API
 export const updateContent = async (newContent) => {
     try {
-        // Create a downloadable JSON file
-        const jsonString = JSON.stringify(newContent, null, 2);
-        const blob = new Blob([jsonString], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
+        const response = await fetch('/api/update-content', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ content: newContent }),
+        });
 
-        // Create download link
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = 'content.json';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        URL.revokeObjectURL(url);
+        if (!response.ok) {
+            throw new Error('Failed to update content');
+        }
 
-        // Show instructions
-        alert(`✅ content.json downloaded!
-
-NEXT STEPS:
-1. Replace the file at: src/content.json
-2. Commit to GitHub:
-   git add src/content.json
-   git commit -m "Update content"
-   git push
-
-Vercel will auto-deploy in ~2 minutes!`);
-
-        return true;
+        return await response.json();
     } catch (error) {
-        console.error('Error saving content:', error);
+        console.error('Error updating content:', error);
         throw error;
     }
 };
 
-// Upload image (also just download, user uploads manually)
+// Upload image via Vercel API
 export const uploadImage = async (file, fileName) => {
     try {
-        // Create download link for the image
-        const url = URL.createObjectURL(file);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = fileName;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        URL.revokeObjectURL(url);
+        // Convert file to base64
+        const reader = new FileReader();
 
-        alert(`✅ Image downloaded as: ${fileName}
+        return new Promise((resolve, reject) => {
+            reader.onload = async () => {
+                try {
+                    const base64Content = reader.result.split(',')[1];
 
-NEXT STEPS:
-1. Save it to: public/${fileName}
-2. Commit to GitHub
-3. Use path: /${fileName} in your content`);
+                    const response = await fetch('/api/upload-image', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            fileName,
+                            fileContent: base64Content,
+                        }),
+                    });
 
-        // Return the expected path
-        return `/${fileName}`;
+                    if (!response.ok) {
+                        throw new Error('Failed to upload image');
+                    }
+
+                    const data = await response.json();
+                    resolve(data.url);
+                } catch (error) {
+                    reject(error);
+                }
+            };
+
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+        });
     } catch (error) {
-        console.error('Error with image:', error);
+        console.error('Error uploading image:', error);
         throw error;
     }
 };

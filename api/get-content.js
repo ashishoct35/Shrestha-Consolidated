@@ -2,12 +2,17 @@ import { Octokit } from 'octokit';
 
 export default async function handler(req, res) {
     try {
+        const token = process.env.GITHUB_TOKEN || process.env.VITE_GITHUB_TOKEN;
+        if (!token) {
+            throw new Error('GitHub token not found. Please set GITHUB_TOKEN or VITE_GITHUB_TOKEN in Vercel environment variables.');
+        }
+
         const octokit = new Octokit({
-            auth: process.env.GITHUB_TOKEN
+            auth: token
         });
 
-        const owner = process.env.REPO_OWNER || 'ashishoct35';
-        const repo = process.env.REPO_NAME || 'Shrestha-Consolidated';
+        const owner = process.env.REPO_OWNER || process.env.VITE_REPO_OWNER || 'ashishoct35';
+        const repo = process.env.REPO_NAME || process.env.VITE_REPO_NAME || 'Shrestha-Consolidated';
 
         // Fetch content.json from GitHub
         const { data } = await octokit.rest.repos.getContent({

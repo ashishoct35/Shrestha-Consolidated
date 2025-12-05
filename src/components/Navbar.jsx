@@ -33,10 +33,10 @@ const Navbar = () => {
     ];
 
     const isActive = (path) => location.pathname === path;
-    const isHome = location.pathname === '/';
+    const isTransparent = location.pathname === '/' || location.pathname === '/pricing';
 
     return (
-        <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
+        <nav className={`navbar ${isScrolled ? 'scrolled' : ''} ${!isTransparent ? 'navbar-internal' : ''}`}>
             <div className="container">
                 <div className="navbar-content">
                     <Link to="/" className="navbar-logo">

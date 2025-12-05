@@ -702,3 +702,28 @@ img {
   animation: shimmer 1.5s infinite;
   border-radius: var(--radius-md);
 }
+
+/* Shared Page Hero */
+.page-hero {
+  background: var(--gradient-dark);
+  color: var(--color-light);
+  padding: var(--spacing-3xl) 0;
+  text-align: center;
+  position: relative;
+  padding-top: 120px;
+  /* Add padding to account for fixed navbar */
+}
+
+.page-hero h1 {
+  color: var(--color-light);
+  margin-bottom: var(--spacing-md);
+  opacity: 0;
+}
+
+.page-hero p {
+  font-size: 1.25rem;
+  max-width: 700px;
+  margin: 0 auto;
+  color: rgba(255, 255, 255, 0.9);
+  opacity: 0;
+}

@@ -58,6 +58,9 @@
 
 .value-card h3 {
     margin-bottom: var(--spacing-sm);
+    overflow-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
 }
 
 .value-card p {

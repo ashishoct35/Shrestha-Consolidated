@@ -36,7 +36,7 @@ const Navbar = () => {
     const isHome = location.pathname === '/';
 
     return (
-        <nav className={`navbar ${isScrolled ? 'scrolled' : ''} ${!isHome ? 'navbar-internal' : ''}`}>
+        <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
             <div className="container">
                 <div className="navbar-content">
                     <Link to="/" className="navbar-logo">

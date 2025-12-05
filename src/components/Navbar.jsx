@@ -1,81 +1,75 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
-import content from '../content.json';
-import CalendlyWidget from './CalendlyWidget';
-import styles from './Navbar.module.css';
+import CalendlyButton from './CalendlyButton';
+import contentData from '../content.json';
+import './Navbar.css';
 
 const Navbar = () => {
-    const [isOpen, setIsOpen] = useState(false);
-    const [scrolled, setScrolled] = useState(false);
+    const [isScrolled, setIsScrolled] = useState(false);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const location = useLocation();
 
     useEffect(() => {
         const handleScroll = () => {
-            setScrolled(window.scrollY > 50);
+            setIsScrolled(window.scrollY > 50);
         };
+
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    useEffect(() => {
+        setIsMobileMenuOpen(false);
+    }, [location]);
+
+    const navLinks = [
+        { path: '/', label: 'Home' },
+        { path: '/about', label: 'About' },
+        { path: '/services', label: 'Services' },
+        { path: '/portfolio', label: 'Portfolio' },
+        { path: '/pricing', label: 'Pricing' },
+        { path: '/contact', label: 'Contact' },
+    ];
+
+    const isActive = (path) => location.pathname === path;
+    const isHome = location.pathname === '/';
+
     return (
-        <>
-            <nav className={`${styles.navbar} ${scrolled ? styles.scrolled : ''}`}>
-                <div className="container">
-                    <div className={styles.navContainer}>
-                        <Link to="/" className={styles.logo}>
-                            <img src={content.company.logo} alt="Logo" className={styles.logoImg} />
-                            <span className={styles.logoText}>SHRESTHA</span>
-                        </Link>
+        <nav className={`navbar ${isScrolled ? 'scrolled' : ''} ${!isHome ? 'navbar-internal' : ''}`}>
+            <div className="container">
+                <div className="navbar-content">
+                    <Link to="/" className="navbar-logo">
+                        <img src="/images/company_logo.png" alt={contentData.company.name} />
+                        <span>{contentData.company.name}</span>
+                    </Link>
 
-                        {/* Desktop Menu */}
-                        <div className={styles.desktopMenu}>
-                            <Link to="/" className={styles.navLink}>Home</Link>
-                            <Link to="/services" className={styles.navLink}>Services</Link>
-                            <Link to="/portfolio" className={styles.navLink}>Portfolio</Link>
-                            <Link to="/contact" className={styles.navLink}>Contact</Link>
-                            <CalendlyWidget
-                                url={content.contact.calendlyLink}
-                                className="btn-primary"
-                                text="Book a Consultation"
-                            />
+                    <div className={`navbar-menu ${isMobileMenuOpen ? 'open' : ''}`}>
+                        {navLinks.map((link) => (
+                            <Link
+                                key={link.path}
+                                to={link.path}
+                                className={`navbar-link ${isActive(link.path) ? 'active' : ''}`}
+                            >
+                                {link.label}
+                            </Link>
+                        ))}
+
+                        <div className="navbar-cta">
+                            <CalendlyButton text="Book a Consultation" variant="primary" />
                         </div>
-
-                        {/* Mobile Toggle */}
-                        <button
-                            className={styles.mobileToggle}
-                            onClick={() => setIsOpen(!isOpen)}
-                        >
-                            {isOpen ? <X size={28} /> : <Menu size={28} />}
-                        </button>
                     </div>
-                </div>
 
-                {/* Mobile Menu */}
-                <AnimatePresence>
-                    {isOpen && (
-                        <motion.div
-                            initial={{ opacity: 0, y: -20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -20 }}
-                            className={styles.mobileMenu}
-                        >
-                            <Link to="/" onClick={() => setIsOpen(false)} className={styles.mobileLink}>Home</Link>
-                            <Link to="/services" onClick={() => setIsOpen(false)} className={styles.mobileLink}>Services</Link>
-                            <Link to="/portfolio" onClick={() => setIsOpen(false)} className={styles.mobileLink}>Portfolio</Link>
-                            <Link to="/contact" onClick={() => setIsOpen(false)} className={styles.mobileLink}>Contact</Link>
-                            <div onClick={() => setIsOpen(false)}>
-                                <CalendlyWidget
-                                    url={content.contact.calendlyLink}
-                                    className={`btn-primary ${styles.mobileCalendly}`}
-                                    text="Book a Consultation"
-                                />
-                            </div>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-            </nav>
-        </>
+                    <button
+                        className="navbar-toggle"
+                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                        aria-label="Toggle menu"
+                    >
+                        {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                    </button>
+                </div>
+            </div>
+        </nav>
     );
 };
 

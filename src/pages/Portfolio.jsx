@@ -1,65 +1,42 @@
 import React from 'react';
-import content from '../content.json';
-import { motion } from 'framer-motion';
-import styles from './Portfolio.module.css';
+import PortfolioCard from '../components/PortfolioCard';
+import CalendlyButton from '../components/CalendlyButton';
+import contentData from '../content.json';
+import './Portfolio.css';
 
 const Portfolio = () => {
     return (
-        <div className={styles.portfolioPage}>
-            <div className="container">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className={styles.pageHeader}
-                >
-                    <h1 className={`${styles.pageTitle} premium-text`}>Our Portfolio</h1>
-                    <p className={styles.pageSubtitle}>
-                        A selection of our recent work across various industries.
+        <div className="portfolio-page">
+            <section className="page-hero">
+                <div className="container">
+                    <h1 className="animate-fadeInUp">Our Portfolio</h1>
+                    <p className="animate-fadeInUp stagger-1">
+                        Explore our latest projects with live website previews. Click any project to visit the live site.
                     </p>
-                </motion.div>
-
-                <div className={styles.portfolioGrid}>
-                    {content.portfolio.map((item, index) => (
-                        <motion.div
-                            key={item.id}
-                            initial={{ opacity: 0, y: 40 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, margin: "-100px" }}
-                            transition={{ duration: 0.6 }}
-                            className={styles.portfolioItem}
-                        >
-                            <div className={styles.portfolioHeader}>
-                                <h2 className={styles.portfolioNumber}>0{index + 1}. {item.title}</h2>
-                                <div className={styles.portfolioDivider} />
-                                <a
-                                    href={item.url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className={styles.portfolioLinkBtn}
-                                >
-                                    Visit Live Site
-                                </a>
-                            </div>
-
-                            <div className={styles.portfolioPreviewWrapper}>
-                                <iframe
-                                    src={item.url}
-                                    title={item.title}
-                                    className={styles.portfolioIframe}
-                                    loading="lazy"
-                                />
-                                <a
-                                    href={item.url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className={styles.portfolioOverlay}
-                                    aria-label={`Visit ${item.title}`}
-                                />
-                            </div>
-                        </motion.div>
-                    ))}
                 </div>
-            </div>
+            </section>
+
+            <section className="section">
+                <div className="container">
+                    <div className="portfolio-grid">
+                        {contentData.portfolio.map((project, index) => (
+                            <div key={project.id} className={`animate-fadeInUp stagger-${(index % 3) + 1}`}>
+                                <PortfolioCard project={project} />
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            <section className="section portfolio-cta">
+                <div className="container">
+                    <div className="cta-box">
+                        <h2>Ready to Start Your Project?</h2>
+                        <p>Let's create something amazing together</p>
+                        <CalendlyButton text="Schedule a Consultation" variant="primary" />
+                    </div>
+                </div>
+            </section>
         </div>
     );
 };

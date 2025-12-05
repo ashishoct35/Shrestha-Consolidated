@@ -1,158 +1,239 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { fetchContent, updateContent } from '../../services/github';
-import styles from './AdminDashboard.module.css';
-import CompanySettings from '../../components/admin/CompanySettings';
-import ServicesManager from '../../components/admin/ServicesManager';
-import PortfolioManager from '../../components/admin/PortfolioManager';
-import ContactSettings from '../../components/admin/ContactSettings';
+import { LogOut, FileText, Image, Settings, Globe, Users, Briefcase } from 'lucide-react';
+import contentData from '../../content.json';
+import '../../admin.css';
 
 const AdminDashboard = () => {
-    const [activeTab, setActiveTab] = useState('company');
-    const [content, setContent] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [saving, setSaving] = useState(false);
     const navigate = useNavigate();
+    const [isEditing, setIsEditing] = useState(false);
+    const [content, setContent] = useState(contentData);
 
     useEffect(() => {
-        // Check authentication
-        const isAuthenticated = sessionStorage.getItem('adminAuth') === 'true';
-        if (!isAuthenticated) {
+        const isAuth = localStorage.getItem('adminAuth');
+        if (!isAuth) {
             navigate('/admin/login');
-            return;
         }
-
-        loadContent();
     }, [navigate]);
 
-    const loadContent = async () => {
-        try {
-            const data = await fetchContent();
-            setContent(data);
-        } catch (error) {
-            console.error('Error loading content:', error);
-            alert('Error loading content. Please check your GitHub token.');
-        } finally {
-            setLoading(false);
-        }
-    };
-
     const handleLogout = () => {
-        sessionStorage.removeItem('adminAuth');
+        localStorage.removeItem('adminAuth');
         navigate('/admin/login');
     };
 
-    const handleSave = async (updatedData) => {
-        setSaving(true);
-        try {
-            await updateContent(updatedData);
-            setContent(updatedData);
-            alert('✅ Changes saved! Vercel will redeploy in ~2 minutes.');
-        } catch (error) {
-            console.error('Error saving:', error);
-            alert('❌ Error saving changes. Please check your GitHub token and try again.');
-        } finally {
-            setSaving(false);
-        }
+    const handleSave = () => {
+        // In a real implementation, this would save to backend/file system
+        console.log('Saving content:', content);
+        alert('Content saved successfully! (Demo mode - changes are not persisted)');
+        setIsEditing(false);
     };
 
-    if (loading) {
-        return (
-            <div className={styles.loading}>
-                <div className={styles.spinner}></div>
-                <p>Loading...</p>
-            </div>
-        );
-    }
+    const updateContent = (path, value) => {
+        const keys = path.split('.');
+        const newContent = { ...content };
+        let current = newContent;
+
+        for (let i = 0; i < keys.length - 1; i++) {
+            current = current[keys[i]];
+        }
+
+        current[keys[keys.length - 1]] = value;
+        setContent(newContent);
+    };
 
     return (
-        <div className={styles.dashboard}>
-            {/* Header */}
-            <header className={styles.header}>
-                <div className={styles.headerContent}>
-                    <h1>Admin Dashboard</h1>
-                    <div className={styles.headerActions}>
-                        <span className={styles.userEmail}>GitHub CMS</span>
-                        <button onClick={handleLogout} className={styles.logoutBtn}>
+        <div className="admin-container">
+            <aside className="admin-sidebar">
+                <div className="admin-logo">Shrestha Admin</div>
+                <nav>
+                    <ul className="admin-nav">
+                        <li className="admin-nav-item">
+                            <a href="#overview" className="admin-nav-link active">
+                                <Settings size={20} />
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                        <li className="admin-nav-item">
+                            <a href="#content" className="admin-nav-link">
+                                <FileText size={20} />
+                                <span>Content</span>
+                            </a>
+                        </li>
+                        <li className="admin-nav-item">
+                            <a href="#images" className="admin-nav-link">
+                                <Image size={20} />
+                                <span>Images</span>
+                            </a>
+                        </li>
+                        <li className="admin-nav-item">
+                            <a href="#services" className="admin-nav-link">
+                                <Briefcase size={20} />
+                                <span>Services</span>
+                            </a>
+                        </li>
+                        <li className="admin-nav-item">
+                            <a href="#portfolio" className="admin-nav-link">
+                                <Globe size={20} />
+                                <span>Portfolio</span>
+                            </a>
+                        </li>
+                        <li className="admin-nav-item">
+                            <a href="/" className="admin-nav-link" target="_blank">
+                                <Globe size={20} />
+                                <span>View Site</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <main className="admin-main">
+                <div className="admin-header">
+                    <h1 className="admin-title">Website Management</h1>
+                    <div className="admin-actions">
+                        {isEditing ? (
+                            <>
+                                <button className="btn btn-outline btn-sm" onClick={() => setIsEditing(false)}>Cancel</button>
+                                <button className="btn btn-primary btn-sm" onClick={handleSave}>Save Changes</button>
+                            </>
+                        ) : (
+                            <button className="btn btn-primary btn-sm" onClick={() => setIsEditing(true)}>Edit Content</button>
+                        )}
+                        <button className="btn btn-outline btn-sm" onClick={handleLogout}>
+                            <LogOut size={18} />
                             Logout
                         </button>
                     </div>
                 </div>
-            </header>
 
-            {/* Main Content */}
-            <div className={styles.container}>
-                {/* Sidebar */}
-                <aside className={styles.sidebar}>
-                    <nav className={styles.nav}>
-                        <button
-                            className={`${styles.navBtn} ${activeTab === 'company' ? styles.active : ''}`}
-                            onClick={() => setActiveTab('company')}
-                        >
-                            Company Settings
-                        </button>
-                        <button
-                            className={`${styles.navBtn} ${activeTab === 'services' ? styles.active : ''}`}
-                            onClick={() => setActiveTab('services')}
-                        >
-                            Services
-                        </button>
-                        <button
-                            className={`${styles.navBtn} ${activeTab === 'portfolio' ? styles.active : ''}`}
-                            onClick={() => setActiveTab('portfolio')}
-                        >
-                            Portfolio
-                        </button>
-                        <button
-                            className={`${styles.navBtn} ${activeTab === 'contact' ? styles.active : ''}`}
-                            onClick={() => setActiveTab('contact')}
-                        >
-                            Contact Info
-                        </button>
-                    </nav>
+                <div className="admin-content">
+                    <div className="stats-grid">
+                        <div className="stat-card">
+                            <div className="stat-label">Total Services</div>
+                            <div className="stat-value">{content.services.length}</div>
+                        </div>
+                        <div className="stat-card">
+                            <div className="stat-label">Portfolio Items</div>
+                            <div className="stat-value">{content.portfolio.length}</div>
+                        </div>
+                        <div className="stat-card">
+                            <div className="stat-label">Testimonials</div>
+                            <div className="stat-value">{content.testimonials.length}</div>
+                        </div>
+                        <div className="stat-card">
+                            <div className="stat-label">Core Values</div>
+                            <div className="stat-value">{content.about.values.length}</div>
+                        </div>
+                    </div>
 
-                    <a
-                        href="/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={styles.viewSite}
-                    >
-                        View Live Site →
-                    </a>
-                </aside>
+                    <div style={{ marginTop: 'var(--spacing-2xl)' }}>
+                        <h2>Company Information</h2>
+                        <div className="form-group">
+                            <label className="form-label">Company Name</label>
+                            <input
+                                type="text"
+                                className="form-input"
+                                value={content.company.name}
+                                onChange={(e) => updateContent('company.name', e.target.value)}
+                                disabled={!isEditing}
+                            />
+                        </div>
 
-                {/* Content Area */}
-                <main className={styles.main}>
-                    {activeTab === 'company' && (
-                        <CompanySettings
-                            content={content}
-                            onSave={handleSave}
-                            saving={saving}
-                        />
-                    )}
-                    {activeTab === 'services' && (
-                        <ServicesManager
-                            content={content}
-                            onSave={handleSave}
-                            saving={saving}
-                        />
-                    )}
-                    {activeTab === 'portfolio' && (
-                        <PortfolioManager
-                            content={content}
-                            onSave={handleSave}
-                            saving={saving}
-                        />
-                    )}
-                    {activeTab === 'contact' && (
-                        <ContactSettings
-                            content={content}
-                            onSave={handleSave}
-                            saving={saving}
-                        />
-                    )}
-                </main>
-            </div>
+                        <div className="form-group">
+                            <label className="form-label">Tagline</label>
+                            <input
+                                type="text"
+                                className="form-input"
+                                value={content.company.tagline}
+                                onChange={(e) => updateContent('company.tagline', e.target.value)}
+                                disabled={!isEditing}
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <label className="form-label">Description</label>
+                            <textarea
+                                className="form-textarea"
+                                value={content.company.description}
+                                onChange={(e) => updateContent('company.description', e.target.value)}
+                                disabled={!isEditing}
+                            />
+                        </div>
+
+                        <div className="grid grid-2" style={{ gap: 'var(--spacing-md)' }}>
+                            <div className="form-group">
+                                <label className="form-label">Phone</label>
+                                <input
+                                    type="text"
+                                    className="form-input"
+                                    value={content.company.phone}
+                                    onChange={(e) => updateContent('company.phone', e.target.value)}
+                                    disabled={!isEditing}
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <label className="form-label">Email</label>
+                                <input
+                                    type="email"
+                                    className="form-input"
+                                    value={content.company.email}
+                                    onChange={(e) => updateContent('company.email', e.target.value)}
+                                    disabled={!isEditing}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="form-group">
+                            <label className="form-label">Address</label>
+                            <input
+                                type="text"
+                                className="form-input"
+                                value={content.company.address}
+                                onChange={(e) => updateContent('company.address', e.target.value)}
+                                disabled={!isEditing}
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <label className="form-label">Calendly Link</label>
+                            <input
+                                type="url"
+                                className="form-input"
+                                value={content.company.calendlyLink}
+                                onChange={(e) => updateContent('company.calendlyLink', e.target.value)}
+                                disabled={!isEditing}
+                            />
+                        </div>
+                    </div>
+
+                    <div style={{ marginTop: 'var(--spacing-2xl)' }}>
+                        <h2>Social Media</h2>
+                        <div className="grid grid-2" style={{ gap: 'var(--spacing-md)' }}>
+                            {Object.keys(content.social).map((platform) => (
+                                <div key={platform} className="form-group">
+                                    <label className="form-label" style={{ textTransform: 'capitalize' }}>{platform}</label>
+                                    <input
+                                        type="url"
+                                        className="form-input"
+                                        value={content.social[platform]}
+                                        onChange={(e) => updateContent(`social.${platform}`, e.target.value)}
+                                        disabled={!isEditing}
+                                    />
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div style={{ marginTop: 'var(--spacing-xl)', padding: 'var(--spacing-lg)', background: 'var(--color-gray-100)', borderRadius: 'var(--radius-md)' }}>
+                        <h3>Note: Demo Admin Panel</h3>
+                        <p style={{ marginBottom: 0, color: 'var(--color-gray-700)' }}>
+                            This is a functional demo of the admin panel. In production, changes would be saved to content.json and require a Git push to deploy.
+                            For now, changes are stored locally and will reset on page reload.
+                        </p>
+                    </div>
+                </div>
+            </main>
         </div>
     );
 };

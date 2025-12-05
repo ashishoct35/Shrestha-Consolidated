@@ -1,83 +1,235 @@
 {
   "company": {
     "name": "Shrestha Consolidated",
-    "logo": "/logo.jpg",
-    "description": "We build premium digital experiences that drive growth.",
-    "tagline": "Elevating Your Digital Presence"
+    "tagline": "Crafting Premium Digital Experiences",
+    "description": "We are a top-rated affordable website design company in Kathmandu, Nepal, specializing in static website design and business website setup for small businesses and startups.",
+    "phone": "+977-9851312671",
+    "email": "shresthaconsolidated@gmail.com",
+    "address": "Lalitpur, Nepal",
+    "calendlyLink": "https://calendly.com/shresthaconsolidated/30min"
+  },
+  "social": {
+    "facebook": "https://www.facebook.com/shresthaconsolidated",
+    "instagram": "https://www.instagram.com/scwebsites/",
+    "whatsapp": "https://wa.me/9779851312671"
   },
   "hero": {
-    "title": "Build Your Digital Empire",
-    "subtitle": "Premium Website Building Services for Modern Businesses.",
-    "cta": "Book a Consultation"
+    "title": "Build Your Dream Website",
+    "subtitle": "Affordable & Premium Web Solutions in Nepal",
+    "description": "We specialize in professional website design in Nepal, offering low-cost static website packages and business website setups in Kathmandu that drive measurable results.",
+    "ctaText": "Book a Consultation",
+    "image": "/images/hero_background.jpg"
   },
+  "stats": [
+    {
+      "number": "100%",
+      "label": "Satisfaction Guarantee"
+    },
+    {
+      "number": "Flexible",
+      "label": "Requirements"
+    },
+    {
+      "number": "24/7",
+      "label": "Support Available"
+    },
+    {
+      "number": "Latest",
+      "label": "Tech Stack"
+    }
+  ],
+  "pricing": [
+    {
+      "id": "one-time",
+      "name": "One-Time Website Design",
+      "setupPrice": "NPR 6,000",
+      "recurringPrice": "NPR 3,000/year",
+      "description": "Perfect for businesses seeking a one-time website design service in Nepal with yearly renewal.",
+      "features": [
+        "Professional Website Design",
+        "Mobile-Friendly Website",
+        "Basic SEO Setup",
+        "Yearly Renewal (No Updates)",
+        "Hosting Included"
+      ],
+      "isPopular": false
+    },
+    {
+      "id": "basic",
+      "name": "Monthly Subscription Plan",
+      "setupPrice": "NPR 6,000",
+      "recurringPrice": "NPR 1,000/month",
+      "description": "Ideal for small business websites in Nepal needing regular updates and reliable hosting.",
+      "features": [
+        "Everything in One-Time Setup",
+        "Premium Hosting",
+        "1 Small Update per Month",
+        "Email Support",
+        "SSL Certificate",
+        "Monthly Backups"
+      ],
+      "isPopular": true
+    },
+    {
+      "id": "premium",
+      "name": "Premium Plan",
+      "setupPrice": "NPR 6,000",
+      "recurringPrice": "NPR 2,000/month",
+      "description": "Best for growing businesses needing unlimited content updates and website design under 10,000 NPR value.",
+      "features": [
+        "Everything in Basic Plan",
+        "Unlimited Content Changes",
+        "Small UI Updates",
+        "Priority Support",
+        "Weekly Backups",
+        "Performance Optimization",
+        "Analytics Reports"
+      ],
+      "isPopular": false
+    },
+    {
+      "id": "rent",
+      "name": "Rent a Website",
+      "setupPrice": "NPR 0",
+      "recurringPrice": "NPR 1,500/month",
+      "description": "Low budget website option: Rent a fully functional website with no upfront cost.",
+      "features": [
+        "No Setup Fee",
+        "Ready-to-Use Templates",
+        "Hosting Included",
+        "Basic Customization",
+        "Cancel Anytime"
+      ],
+      "isPopular": false
+    }
+  ],
   "services": [
     {
-      "id": 1,
-      "title": "Custom Website Development",
-      "description": "Tailored websites built from scratch to meet your specific business needs.",
-      "icon": "Code"
+      "id": "web-design",
+      "title": "Static Website Design",
+      "description": "Stunning, mobile-friendly website design in Nepal tailored to your brand identity and business goals.",
+      "icon": "Palette",
+      "image": "/images/services_web_design.jpg",
+      "features": [
+        "Mobile-First Responsive Design",
+        "Custom UI/UX for Kathmandu Businesses",
+        "Brand Integration",
+        "Fast Loading Static Sites"
+      ]
     },
     {
-      "id": 2,
-      "title": "E-commerce Solutions",
-      "description": "Robust online stores designed to maximize sales and user experience.",
-      "icon": "ShoppingBag"
+      "id": "ecommerce",
+      "title": "Business Website Setup",
+      "description": "Professional business website setup to showcase your services, portfolio, and products effectively to your customers.",
+      "icon": "ShoppingCart",
+      "image": "/images/services_ecommerce.jpg",
+      "features": [
+        "Service & Product Showcase",
+        "Contact Form Integration",
+        "Google Maps Location",
+        "Social Media Integration"
+      ]
     },
     {
-      "id": 3,
-      "title": "UI/UX Design",
-      "description": "User-centric designs that are both beautiful and functional.",
-      "icon": "Palette"
+      "id": "custom-development",
+      "title": "Custom Development",
+      "description": "Bespoke web interfaces built by local developers in Nepal using modern frontend technologies.",
+      "icon": "Code",
+      "image": "/images/services_custom_dev.jpg",
+      "features": [
+        "Interactive UI Components",
+        "Smooth Animations",
+        "Single Page Applications",
+        "Modern React Patterns"
+      ]
     },
     {
-      "id": 4,
-      "title": "SEO Optimization",
-      "description": "Strategies to improve your visibility and ranking on search engines.",
-      "icon": "Search"
+      "id": "maintenance",
+      "title": "Website Management",
+      "description": "Ongoing support, updates, and website management in Nepal to keep your site running smoothly.",
+      "icon": "Settings",
+      "image": "/images/services_maintenance.jpg",
+      "features": [
+        "Regular Updates",
+        "Security Monitoring",
+        "Performance Optimization",
+        "Content Updates"
+      ]
     }
   ],
   "portfolio": [
     {
-      "id": 1,
+      "id": "restaurant",
       "title": "Ashish Restaurant",
+      "category": "Restaurant & Dining",
       "url": "https://ashish-restaurant.vercel.app/",
-      "image": "https://ashish-restaurant.vercel.app/og-image.png"
+      "description": "A premium dining experience website with online reservations and menu showcase."
     },
     {
-      "id": 2,
-      "title": "Ashish Gym",
+      "id": "gym",
+      "title": "Ashish GYM",
+      "category": "Fitness & Wellness",
       "url": "https://ashish-gym.vercel.app/",
-      "image": "https://ashish-gym.vercel.app/og-image.png"
+      "description": "Modern fitness center website featuring membership plans and class schedules."
     },
     {
-      "id": 3,
+      "id": "bakery",
       "title": "Ashish Bakery Cafe",
+      "category": "Food & Beverage",
       "url": "https://ashish-bakery-cafe.vercel.app/",
-      "image": "https://ashish-bakery-cafe.vercel.app/og-image.png"
+      "description": "Delightful bakery cafe website with product galleries and online ordering."
     },
     {
-      "id": 4,
+      "id": "tattoo",
       "title": "Ashish Tattoo Studio",
+      "category": "Art & Design",
       "url": "https://ashish-tattoo-studio.vercel.app/",
-      "image": "https://ashish-tattoo-studio.vercel.app/og-image.png"
+      "description": "Bold tattoo studio website showcasing artist portfolios and booking system."
     },
     {
-      "id": 5,
+      "id": "hotel",
       "title": "Ashish Hotel",
+      "category": "Hospitality",
       "url": "https://ashish-hotel.vercel.app/",
-      "image": "https://ashish-hotel.vercel.app/og-image.png"
+      "description": "Luxurious hotel website with room previews and reservation management."
+    },
+    {
+      "id": "calcfusion",
+      "title": "CalcFusion",
+      "category": "Tools & Utilities",
+      "url": "https://calcfusion.vercel.app/",
+      "description": "A comprehensive suite of online calculators including FIRE & Retirement planner, EMI & Loan calculator with amortization schedules, and advanced BMI & Body Fat calculator."
     }
   ],
+  "about": {
+    "story": "Founded with a passion for digital innovation, Shrestha Consolidated has grown into a leading web development agency. We combine creative excellence with technical expertise to deliver websites that not only look stunning but also achieve business objectives.",
+    "mission": "To empower businesses with premium digital solutions that drive growth and create lasting impact.",
+    "values": [
+      {
+        "title": "Quality First",
+        "description": "We never compromise on quality, delivering excellence in every pixel and line of code."
+      },
+      {
+        "title": "Client-Centric",
+        "description": "Your success is our success. We listen, understand, and deliver beyond expectations."
+      },
+      {
+        "title": "Innovation",
+        "description": "We stay ahead of trends, using cutting-edge technologies to build future-ready solutions."
+      },
+      {
+        "title": "Transparency",
+        "description": "Clear communication and honest partnerships are the foundation of our relationships."
+      }
+    ]
+  },
   "contact": {
-    "socials": {
-      "facebook": "https://facebook.com",
-      "instagram": "https://instagram.com",
-      "twitter": "https://twitter.com",
-      "whatsapp": "https://wa.me/1234567890"
-    },
-    "phone": "+977-9800000000",
-    "address": "Kathmandu, Nepal",
-    "mapEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d56516.31625951266!2d85.3261328!3d27.7089559!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb198a307baabf%3A0xb5137c1bf18db1ea!2sKathmandu%2044600!5e0!3m2!1sen!2snp!4v1650000000000!5m2!1sen!2snp",
-    "calendlyLink": "https://calendly.com/shresthaconsolidated/30min"
+    "title": "Let's Build Something Amazing Together",
+    "description": "Get in touch with us today to discuss your project and see how we can help bring your vision to life.",
+    "mapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d452.52806780732696!2d85.3460986318753!3d27.664080207989586!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb19fc9473b993%3A0x7ab771cc60ab3411!2zTTg3VytNRjQsIEltYWRvbCBLcmlzaG5hIE1hbmRpciBSZCwgNDQ2MDA!5e0!3m2!1sen!2snp!4v1701780000000!5m2!1sen!2snp"
+  },
+  "admin": {
+    "username": "admin",
+    "password": "admin123"
   }
 }

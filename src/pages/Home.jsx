@@ -1,97 +1,112 @@
 import React from 'react';
-import Hero from '../components/Hero';
-import content from '../content.json';
-import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import styles from './Home.module.css';
+import { ArrowRight, CheckCircle } from 'lucide-react';
+import CalendlyButton from '../components/CalendlyButton';
+import PortfolioCard from '../components/PortfolioCard';
+import contentData from '../content.json';
+import './Home.css';
 
 const Home = () => {
     return (
-        <div className={styles.home}>
-            <Hero />
-
-            {/* Featured Services Preview */}
-            <section className={styles.servicesSection}>
+        <div className="home">
+            {/* Hero Section */}
+            <section className="hero" style={{ backgroundImage: `url(/images/hero_background.jpg)` }}>
+                <div className="overlay-gradient"></div>
                 <div className="container">
-                    <div className={styles.sectionHeader}>
-                        <div>
-                            <h2 className={styles.sectionTitle}>Our Expertise</h2>
-                            <p className={styles.sectionSubtitle}>Crafting digital excellence with precision.</p>
+                    <div className="hero-content animate-fadeInUp">
+                        <h1 className="hero-title">{contentData.hero.title}</h1>
+                        <h2 className="hero-subtitle">{contentData.hero.subtitle}</h2>
+                        <p className="hero-description">{contentData.hero.description}</p>
+
+                        <div className="hero-actions">
+                            <CalendlyButton text={contentData.hero.ctaText} variant="primary" />
+                            <Link to="/portfolio" className="btn btn-outline">
+                                View Our Work <ArrowRight size={20} />
+                            </Link>
                         </div>
-                        <Link to="/services" className={styles.sectionLink}>
-                            View All Services <ArrowRight size={20} />
-                        </Link>
+                    </div>
+                </div>
+            </section>
+
+            {/* Stats Section */}
+            <section className="stats-section">
+                <div className="container">
+                    <div className="stats-grid">
+                        {contentData.stats.map((stat, index) => (
+                            <div key={index} className={`stat-item animate-scaleIn stagger-${index + 1}`}>
+                                <div className="stat-number">{stat.number}</div>
+                                <div className="stat-label">{stat.label}</div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* Services Preview */}
+            <section className="section services-preview">
+                <div className="container">
+                    <div className="section-header text-center">
+                        <h2 className="animate-fadeInUp">Our Premium Services</h2>
+                        <p className="text-muted animate-fadeInUp stagger-1">
+                            Comprehensive web solutions tailored to your business needs
+                        </p>
                     </div>
 
-                    <div className={styles.servicesGrid}>
-                        {content.services.slice(0, 3).map((service, index) => (
-                            <motion.div
-                                key={service.id}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ delay: index * 0.1 }}
-                                className={styles.serviceCard}
-                            >
-                                <h3 className={styles.serviceTitle}>{service.title}</h3>
-                                <p className={styles.serviceDescription}>{service.description}</p>
-                            </motion.div>
+                    <div className="grid grid-3">
+                        {contentData.services.slice(0, 3).map((service, index) => (
+                            <div key={service.id} className={`service-card animate-fadeInUp stagger-${index + 1}`}>
+                                <div className="service-image">
+                                    <img src={service.image} alt={service.title} />
+                                </div>
+                                <h3>{service.title}</h3>
+                                <p>{service.description}</p>
+                                <ul className="service-features">
+                                    {service.features.slice(0, 3).map((feature, idx) => (
+                                        <li key={idx}>
+                                            <CheckCircle size={18} />
+                                            <span>{feature}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
                         ))}
                     </div>
 
-                    <div className={styles.mobileLink}>
-                        <Link to="/services" className={styles.mobileLinkBtn}>
+                    <div className="text-center" style={{ marginTop: 'var(--spacing-xl)' }}>
+                        <Link to="/services" className="btn btn-primary">
                             View All Services <ArrowRight size={20} />
                         </Link>
                     </div>
                 </div>
             </section>
 
-            {/* Featured Portfolio Preview */}
-            <section id="portfolio" className={styles.portfolioSection}>
+
+            {/* Featured Projects Section */}
+            <section className="section portfolio-section">
                 <div className="container">
-                    <div className={styles.sectionHeader}>
-                        <div>
-                            <h2 className={styles.sectionTitle}>Selected Works</h2>
-                            <p className={styles.sectionSubtitle}>A showcase of our finest digital creations.</p>
-                        </div>
-                        <Link to="/portfolio" className={styles.sectionLink}>
+                    <div className="section-header text-center">
+                        <h2 className="animate-fadeInUp">Featured Projects</h2>
+                        <p className="text-muted animate-fadeInUp stagger-1">
+                            Explore some of our recent premium web development projects
+                        </p>
+                    </div>
+
+                    <div className="portfolio-grid grid grid-2">
+                        {contentData.portfolio.filter(project => ['hotel', 'calcfusion'].includes(project.id)).map((project) => (
+                            <PortfolioCard key={project.id} project={project} />
+                        ))}
+                    </div>
+
+                    <div className="text-center" style={{ marginTop: 'var(--spacing-xl)' }}>
+                        <Link to="/portfolio" className="btn btn-outline">
                             View Full Portfolio <ArrowRight size={20} />
                         </Link>
                     </div>
-
-                    <div className={styles.portfolioGrid}>
-                        {content.portfolio.slice(0, 2).map((item, index) => (
-                            <motion.div
-                                key={item.id}
-                                initial={{ opacity: 0, scale: 0.95 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                transition={{ delay: index * 0.1 }}
-                                className={styles.portfolioItem}
-                            >
-                                <iframe
-                                    src={item.url}
-                                    title={item.title}
-                                    className={styles.portfolioIframe}
-                                    tabIndex="-1"
-                                />
-                                <div className={styles.portfolioOverlay} />
-                                <div className={styles.portfolioInfo}>
-                                    <h3 className={styles.portfolioTitle}>{item.title}</h3>
-                                    <a
-                                        href={item.url}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className={styles.portfolioLink}
-                                    >
-                                        Visit Website
-                                    </a>
-                                </div>
-                            </motion.div>
-                        ))}
-                    </div>
                 </div>
             </section>
+
+
+
         </div>
     );
 };

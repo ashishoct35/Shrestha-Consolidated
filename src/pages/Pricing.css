@@ -1,0 +1,26 @@
+/* Pricing Page Styles */
+.pricing-page {
+    min-height: 100vh;
+}
+
+.pricing-cta {
+    background: var(--color-gray-100);
+}
+
+.pricing-cta-content {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.pricing-cta-content h2 {
+    margin-bottom: var(--spacing-md);
+    opacity: 0;
+}
+
+.pricing-cta-content p {
+    font-size: 1.125rem;
+    color: var(--color-gray-600);
+    margin-bottom: var(--spacing-xl);
+    opacity: 0;
+}
